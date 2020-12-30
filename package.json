@@ -1,0 +1,24 @@
+{
+  "name": "backend-pleaseletsdoit",
+  "version": "1.0.0",
+  "description": "a node project learning API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/B-Sallum/BackEnd-PleaseLetsDoIt.git"
+  },
+  "author": "B. 💚",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/B-Sallum/BackEnd-PleaseLetsDoIt/issues"
+  },
+  "homepage": "https://github.com/B-Sallum/BackEnd-PleaseLetsDoIt#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mongoose": "^6.0.12"
+  }
+}
