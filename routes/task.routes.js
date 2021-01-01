@@ -6,14 +6,18 @@ const taskController = new TaskController();
 
 const router = express.Router();
 
-router.get('/', taskController.getTask);
 
-router.get('/:id', taskController.getTaskById);
+router.get('/tasks', taskController.getTask);
+
+router.get('/task/:id', taskController.getTaskById);
 
 router.post('/new', taskController.createTask);
 
-router.put('/:id', taskController.editTask);
+router.put('/edit/:id', taskController.editTask);
 
-router.delete('/:id', taskController.deleteTask);
+router.delete('/delete/:id', taskController.deleteTask);
+
+router.get('*', taskController.ooops);
+
 
 module.exports = router;
