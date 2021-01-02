@@ -36,13 +36,14 @@ class taskController {
     .then(() => res.status(200).send(
       { message: `${newTask.title} Added`}
     ))
-    .catch(err => res.status(500).send(
-        { message: `Something goes Wrong, please try again` }
-    ));
+    .catch(error => {
+      let message = error.errors.title.message;
+      res.status(500).send({ message: message })
+    });
 
   };
 
-
+  
   editTask = async (req, res) => {
 
     const taskEdit = req.body;
