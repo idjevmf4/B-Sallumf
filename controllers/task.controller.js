@@ -20,6 +20,7 @@ class taskController {
     .then(() => res.status(200).send(
       res.status(200).send(response)
     ))
+
     .catch(err => res.status(404).send(
         { message: `404 - Sorry, There is nothing Here` }
     ));
@@ -36,9 +37,10 @@ class taskController {
     .then(() => res.status(200).send(
       { message: `${newTask.title} Added`}
     ))
-    .catch(error => {
-      let message = error.errors.title.message;
-      res.status(500).send({ message: message })
+
+    .catch((error) => {
+      const message = error.errors.title.message;
+      res.status(400).send({ message: message });
     });
 
   };
@@ -54,6 +56,7 @@ class taskController {
     .then(() => res.status(200).send(
       { message: `Task Edited`}
     ))
+
     .catch(err => res.status(500).send(
       { message: `Something goes wrong`}
     ));
@@ -70,12 +73,12 @@ class taskController {
     .then(() => res.status(200).send(
       { message: `Task Deleted`}
     ))
+
     .catch(err => res.status(500).send(
       { message: `Something goes wrong`}
     ));
     
   };
-
 
   ooops = (req, res) => {
     res.status(404).send({ message: `404 - Sorry, There is nothing Here` });
