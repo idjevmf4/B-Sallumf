@@ -1,17 +1,19 @@
 const TaskService = require('./../services/task.service');
 
+const pleaseValidate = (field) => {
+
+  return true;
+}
+
 const taskService = new TaskService;
 
 class taskController {
 
   getTask = async (req, res) => {
     
-    const response = await taskService.findAll();    
-
-    res.status(200).send(response)
-
+    const response = await taskService.findAll();
+    res.status(200).send(response);
   };
-
 
   getTaskById = async (req, res) => {
 
@@ -21,28 +23,31 @@ class taskController {
       res.status(200).send(response)
     ))
 
-    .catch(err => res.status(404).send(
-        { message: `404 - Sorry, There is nothing Here` }
-    ));
-
+    .catch(err => res.status(404).send({
+      message: `404 - Sorry, There is nothing Here`
+    }));
   };
-
 
   createTask = async (req, res) => {
 
     const newTask = req.body;
+    const isThisOk = pleaseValidate(newTask);
 
-    await taskService.create(newTask)
+    if (isThisOk === true) {
+      await taskService.create(newTask)
 
-    .then(() => res.status(200).send(
-      { message: `${newTask.title} Added`}
-    ))
-
-    .catch((error) => {
-      const message = error.errors.title.message;
-      res.status(400).send({ message: message });
-    });
-
+      .then(() => res.status(200).send({
+        message: `${newTask.title} Added`
+      }))
+  
+      .catch(error => res.status(400).send({ 
+        message: error.errors.title.message 
+      }));
+    } else {
+      res.status(406).send({
+        message: isThisOk
+      })
+    }
   };
 
   
@@ -60,7 +65,6 @@ class taskController {
     .catch(err => res.status(500).send(
       { message: `Something goes wrong`}
     ));
-
   };
 
 
