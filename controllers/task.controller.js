@@ -17,15 +17,38 @@ class taskController {
 
   getTaskById = async (req, res) => {
 
-    const response = await taskService.findById(req.params.id)
+    // const request = await taskService.findById(req.params.id);
 
-    .then(() => res.status(200).send(
-      res.status(200).send(response)
-    ))
+    // const response = await request.json(errado)
 
-    .catch(err => res.status(404).send({
-      message: `404 - Sorry, There is nothing Here`
-    }));
+    // .then(() => {
+    //   console.log(response)
+    //   console.log(`AGORA DEU CERTO`)
+      
+    //   res.status(200).send(
+    //     response
+    //   )
+    // })
+
+    // .catch(err => {
+    //   console.log(err)
+    //   console.log(`Something goes wrong`)
+    //   res.status(400).send(
+    //     { message: `Something goes wrong`}
+    //   )
+    // });
+
+    try {
+      const request = await taskService.findById(req.params.id);
+      res.status(200).send(request);
+    } 
+    catch (error) {
+      console.log(error);
+      res.status(404).send({ 
+        message: 'id n encontrado' 
+      })
+    }
+    
   };
 
   createTask = async (req, res) => {
@@ -57,7 +80,7 @@ class taskController {
     const taskId = req.params.id;
 
     await taskService.edit(taskId, taskEdit)
-
+    
     .then(() => res.status(200).send(
       { message: `Task Edited`}
     ))
@@ -70,9 +93,7 @@ class taskController {
 
   deleteTask = async (req, res) => {
 
-    const deleteTask = req.params.id;
-
-    await taskService.delete(deleteTask)
+    await taskService.delete(req.params.id)
 
     .then(() => res.status(200).send(
       { message: `Task Deleted`}

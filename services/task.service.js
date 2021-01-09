@@ -4,7 +4,7 @@ class TaskService {
 
   findAll = async () => await TaskModel.find();
 
-  findById = async () => await TaskModel.findById(id);
+  findById = async (id) => await TaskModel.findById(id); 
 
   create = async (newTask) => await TaskModel.create(newTask);
 
