@@ -43,9 +43,9 @@ class taskController {
       res.status(200).send(request);
     } 
     catch (error) {
-      console.log(error);
+      console.log(error.message);
       res.status(404).send({ 
-        message: 'id n encontrado' 
+        message: 'ID not found' 
       })
     }
     
