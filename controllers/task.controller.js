@@ -2,6 +2,8 @@ const TaskService = require('./../services/task.service');
 
 const pleaseValidate = (field) => {
 
+  // if (!field.title) {return 'Please enter a Title for the Task!'}
+
   return true;
 }
 
@@ -10,9 +12,18 @@ const taskService = new TaskService;
 class taskController {
 
   getTask = async (req, res) => {
-    
-    const response = await taskService.findAll();
-    res.status(200).send(response);
+
+    try {
+      const response = await taskService.findAll();
+      res.status(200).send(response);
+    } 
+    catch (error) {
+      console.log(error.message);
+      res.status(404).send({ 
+        message: "We can't reach the Fountain of Tasks, please try again in a few moments!" 
+      })
+    }    
+
   };
 
   getTaskById = async (req, res) => {
@@ -53,7 +64,7 @@ class taskController {
 
   createTask = async (req, res) => {
 
-    const newTask = req.body;
+    var newTask = req.body;
     const isThisOk = pleaseValidate(newTask);
 
     if (isThisOk === true) {
@@ -64,7 +75,7 @@ class taskController {
       }))
   
       .catch(error => res.status(400).send({ 
-        message: error.errors.title.message 
+        message: error.errors.title.message
       }));
     } else {
       res.status(406).send({
