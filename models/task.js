@@ -7,7 +7,7 @@ const taskSchema = new mongoose.Schema({
   },
   details: String,
   priority: String,
-  taskStatus: Boolean,
+  done: Boolean,
   deadline: Date,
   date: { type: Date, default: Date.now }
 });
